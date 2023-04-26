@@ -1,0 +1,33 @@
+{
+  "name": "less-carbon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ndoe server.js",
+    "dev": "nodemon server.js",
+    "db:seed": "node seed/data.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iffat77/less-carbon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Iffat77/less-carbon/issues"
+  },
+  "homepage": "https://github.com/Iffat77/less-carbon#readme",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
