@@ -1,18 +1,20 @@
-import Thread from ('../models/threadModel.js');
-import Wall from ('../models/wallModel.js');
-
+import Wall from '../models/wallModel.js';
+import Thread from '../models/threadModel.js';
+import asyncHandler from 'express-async-handler';
 // Get all walls
-export const getWalls = async (req, res) => {
+export const getWalls = asyncHandler( async (req, res) => {
   try {
-    const walls = await Wall.find();
+    const walls = await Wall.find({ creator: req.user.id });
+
+
     res.json(walls);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+});
 
 // Get a wall by ID
-export const getWall = async (req, res) => {
+export const getWall = asyncHandler(  async (req, res) => {
   try {
     const wall = await Wall.findById(req.params.id);
     if (!wall) throw new Error('Wall not found');
@@ -20,10 +22,10 @@ export const getWall = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+});
 
 // Create a new wall
-export const createWall = async (req, res) => {
+export const createWall =asyncHandler(  async (req, res) => {
   try {
     const { name, description } = req.body;
 
@@ -38,10 +40,10 @@ export const createWall = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+});
 
 // Update a wall
-export const updateWall = async (req, res) => {
+export const updateWall = asyncHandler( async (req, res) => {
   try {
     const { name, description } = req.body;
 
@@ -60,10 +62,10 @@ export const updateWall = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+});
 
 // Delete a wall
-export const deleteWall = async (req, res) => {
+export const deleteWall = asyncHandler( async (req, res) => {
   try {
     const wall = await Wall.findById(req.params.id);
     if (!wall) throw new Error('Wall not found');
@@ -77,10 +79,10 @@ export const deleteWall = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+});
 
 // Add a thread to a wall
-export const addThreadToWall = async (req, res) => {
+export const addThreadToWall = asyncHandler( async (req, res) => {
   try {
     const { wallId } = req.params;
     const { title, content } = req.body;
@@ -98,4 +100,18 @@ export const addThreadToWall = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+});
+
+
+// Logged in user wall
+
+// export const getProfileWalls = asyncHandler( async (req, res) => {
+//   try {
+//     const walls = await Wall.find({ user: req.user.id });
+
+    
+//     res.json(walls);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });

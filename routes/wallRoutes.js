@@ -1,16 +1,21 @@
 import { Router } from "express";
 import * as controllers from "../controllers/wallControlller.js";
+import protect from "../middleware/authMiddleware.js";
 
 
 const router = Router();
-
-router.get("/walls", controllers.getWalls);
-router.get("/walls/:id", controllers.getWall);
-router.post("/walls", controllers.createWall);
-router.put("/walls/:id", controllers.updateWall);
-router.delete("/walls/:id", controllers.deleteWall);
+// getProfileWalls
+router.get("/walls", protect, controllers.getWalls);
+router.get("/walls/:id", protect, controllers.getWall);
+router.post("/walls", protect, controllers.createWall);
+router.put("/walls/:id", protect, controllers.updateWall);
+router.delete("/walls/:id", protect, controllers.deleteWall);
 
 // Add a new thread to a wall
 router.post("/walls/:id/threads", controllers.addThreadToWall);
+
+
+// Logged In User 
+// router.get("/walls/prof", protect, controllers.getProfileWalls);
 
 export default router;

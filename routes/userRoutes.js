@@ -1,13 +1,11 @@
 import { Router } from "express";
-import * as controllers from "../controllers/userConteroller.js";
-
+import * as controllers from "../controllers/userController.js";
+import protect from "../middleware/authMiddleware.js";
 
 const router = Router();
 
-// router.get("/walls", controllers.getWalls);
-// router.get("/walls/:id", controllers.getWall);
-router.post("/walls", controllers.createWall);
-// router.put("/walls/:id", controllers.updateWall);
-// router.delete("/walls/:id", controllers.deleteWall);
+router.post("/users", controllers.registerUser);
+router.post("/users/login", controllers.loginUser);
+router.get("/users/me", protect, controllers.getUser);
 
 export default router;

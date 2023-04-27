@@ -10,6 +10,11 @@ let wallSchema = new Schema({
     type: String,
     required: true
   },
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   threads: [{
     type: Schema.Types.ObjectId,
     ref: 'Thread'
