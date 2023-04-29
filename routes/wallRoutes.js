@@ -16,6 +16,5 @@ router.post("/walls/:id/threads", controllers.addThreadToWall);
 
 
 // Logged In User 
-// router.get("/walls/prof", protect, controllers.getProfileWalls);
 
 export default router;

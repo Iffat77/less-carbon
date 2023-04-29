@@ -1,6 +1,8 @@
 import Wall from '../models/wallModel.js';
 import Thread from '../models/threadModel.js';
 import asyncHandler from 'express-async-handler';
+import User from '../models/userModel.js';
+
 // Get all walls
 export const getWalls = asyncHandler( async (req, res) => {
   try {
@@ -45,12 +47,20 @@ export const createWall =asyncHandler(  async (req, res) => {
 // Update a wall
 export const updateWall = asyncHandler( async (req, res) => {
   try {
+    const { id } = req.params
+    const  user  = req.user.id
     const { name, description } = req.body;
 
     const wall = await Wall.findById(req.params.id);
     if (!wall) throw new Error('Wall not found');
 
-    if (wall.creator.toString() !== req.user._id) {
+    if (!user) {
+      res.status(401)
+      throw new Error('User not found')
+    }
+
+    if (wall.creator.toString() !== user) {
+      res.status(401)
       throw new Error('Not authorized to update this wall');
     }
 
@@ -67,17 +77,25 @@ export const updateWall = asyncHandler( async (req, res) => {
 // Delete a wall
 export const deleteWall = asyncHandler( async (req, res) => {
   try {
-    const wall = await Wall.findById(req.params.id);
+    const { id } = req.params
+    const  user  = req.user.id
+    const wall = await Wall.findById(id);
     if (!wall) throw new Error('Wall not found');
-
-    if (wall.creator.toString() !== req.user._id) {
-      throw new Error('Not authorized to delete this wall');
+    
+    if (!user) {
+      res.status(401)
+      throw new Error('User not found')
     }
 
-    await wall.remove();
+    if (wall.creator.toString() !== user) {
+      throw new Error(`Not authorized to delete this wall ${user}`);
+    }
+    // console.log(`\n\nparamsID: ${id}\n\n user: ${user}\n\n wall: ${wall}\n\n wallCreator: ${wall.creator}`)
+
+    await wall.deleteOne();
     res.json({ message: 'Wall deleted' });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.json({ error: err.message });
   }
 });
 
@@ -107,10 +125,37 @@ export const addThreadToWall = asyncHandler( async (req, res) => {
 
 // export const getProfileWalls = asyncHandler( async (req, res) => {
 //   try {
-//     const walls = await Wall.find({ user: req.user.id });
+//     const walls = await Wall.find();
 
     
 //     res.json(walls);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
+// // Delete a wall
+// export const deleteWall = asyncHandler(async (req, res) => {
+//   try {
+//     const wall  = await Wall.findById(req.params.id);
+
+//     const user = await User.findById(req.user._id);
+//     if (!wall) throw new Error("Wall not found");
+
+//     if (!req.user._id) {
+//       res.status(401);
+//       throw new Error("User not found");
+//     }
+
+//     if (wall.creator.toString() !== user._id.toString()) {
+//       throw new Error(
+//         `Not authorized to delete this wall, wall-creator:${typeof wall.creator} user:${typeof user._id} wall:${{wall}}`
+//       );
+//     }
+
+//     await wall.remove();
+//     res.json({ message: "Wall deleted" });
 //   } catch (err) {
 //     res.status(500).json({ error: err.message });
 //   }
