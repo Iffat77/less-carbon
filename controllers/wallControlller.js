@@ -78,7 +78,7 @@ export const updateWall = asyncHandler( async (req, res) => {
 export const deleteWall = asyncHandler( async (req, res) => {
   try {
     const { id } = req.params
-    const  user  = req.user.id
+    const user = req.user.id
     const wall = await Wall.findById(id);
     if (!wall) throw new Error('Wall not found');
     
@@ -92,7 +92,7 @@ export const deleteWall = asyncHandler( async (req, res) => {
     }
     // console.log(`\n\nparamsID: ${id}\n\n user: ${user}\n\n wall: ${wall}\n\n wallCreator: ${wall.creator}`)
 
-    await wall.deleteOne();
+    await Wall.findByIdAndRemove(id)
     res.json({ message: 'Wall deleted' });
   } catch (err) {
     res.json({ error: err.message });
