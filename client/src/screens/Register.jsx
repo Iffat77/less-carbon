@@ -1,6 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaUser } from "react-icons/fa";
+import authService from "../services/auth.js";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -8,19 +9,33 @@ function Register() {
     email: "",
     password: "",
     rePassword: "",
-  });
+  })
+  const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
-  const { name, email, password, rePassword } = formData;
+  const { name, email, password, rePassword } = formData
 
-  const onChange = (e) => { 
+  const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }))
-  };
-  
-  const onSubmit = (e) => {
+  }
+
+  const onSubmit = async (e) => {
     e.preventDefault()
+    if (password !== rePassword) {
+      setError("Passwords do not match")
+      return
+    }
+    try {
+      const token = await authService.register(name, email, password)
+      localStorage.setItem("token", token)
+      // Redirect to the login page or show a success message
+      navigate("/login")
+    } catch (error) {
+      setError(error.response.data.message)
+    }
   }
 
   return (
@@ -69,11 +84,11 @@ function Register() {
             placeholder="Confirm Password"
             onChange={onChange}
           />
-          <button type="submit"> Submit </button>
+          <button type="submit">Submit</button>
         </form>
       </section>
     </div>
-  );
+  )
 }
 
-export default Register;
+export default Register

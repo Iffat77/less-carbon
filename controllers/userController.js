@@ -2,113 +2,108 @@ import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import asyncHandler from 'express-async-handler';
-
+import { validationResult } from 'express-validator';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 
 // Register user
-// POST  /api/users
+// POST /api/users
 // Public
-export const registerUser = asyncHandler( async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+    return;
+  }
+
   try {
-    const { name, email, password } = req.body
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !password) {
-      res.status(400)
-      throw new Error('Please add all fields')
-    }
- 
+    const userExists = await User.findOne({ email });
 
-
-   // Check if user exists 
-   const userExists = await User.findOne({email})
-  
     if (userExists) {
-     res.status(400)
-     throw new Error('User already exists')
-    } 
+      res.status(400).json({ message: 'User already exists' });
+      return;
+    }
 
-  // Hash Password
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Create User 
-  const user = await User.create({
-    name,
-    email,
-    password: hashedPassword
-  })
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
 
-  if (user) {
+    const token = generateToken(user._id);
+
     res.status(201).json({
       _id: user.id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id)
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid user data')
+      token,
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
   }
-} catch (err) {
-  res.status(500).json({ error: err.message });
-}
 });
 
-// res.json({ message: "Register User" });
-
 // Authenticate user
-// POST  /api/login
+// POST /api/login
 // Public
-export const loginUser = asyncHandler( async (req, res) => {
+export const loginUser = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+    return;
+  }
+
   try {
-    const {email , password} = req.body
+    const { email, password } = req.body;
 
-    // Check for user email
-    const user = await User.findOne({email})
+    const user = await User.findOne({ email });
 
-    if (user && (await bcrypt.compare(password, user.password))) {
-      res.json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id)
-      })
-    } else {
-      res.status(400)
-      throw new Error('Invalid Credentials')
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      res.status(401).json({ message: 'Invalid email or password' });
+      return;
     }
-    
+
+    const token = generateToken(user._id);
+
+    res.json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      token,
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // Get user data
-// GET  /api/users/me
+// GET /api/users/me
 // Private
-
-
-export const getUser = asyncHandler( async (req, res) => {
+export const getUser = asyncHandler(async (req, res) => {
   try {
-    const { _id, name, email } = await User.findById(req.user.id)
+    const user = await User.findById(req.user.id).select('-password');
 
-    res.status(200).json({
-      id: _id,
-      name,
-      email,
-    })
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
 
+    res.status(200).json(user);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-//Generate JWT
-
+// Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '1h',
-  })
-}
+  });
+};
