@@ -4,7 +4,7 @@ let apiUrl;
 
 const apiUrls = {
   production: "https://architecture-api-group7.herokuapp.com/",
-  development: "http://localhost:8000/"
+  development: "http://localhost:8000/api"
 }
 
 if (window.location.hostname === "localhost") {
@@ -14,7 +14,7 @@ if (window.location.hostname === "localhost") {
 }
 
 const api = axios.create({
-  baseURL: apiUrl.development
+  baseURL: apiUrl
 });
 
 export default api;
