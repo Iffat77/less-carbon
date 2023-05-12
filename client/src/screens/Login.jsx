@@ -27,7 +27,7 @@ function Login() {
     e.preventDefault()
     try {
       await authService.login(email, password)
-      navigate("/articles")
+      navigate("/")
     } catch (error) {
       setError("Login failed. Please check your credentials.")
     }

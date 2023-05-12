@@ -6,11 +6,13 @@ import Home from "./screens/Home";
 import Register from "./screens/Register";
 import Login from "./screens/Login";
 import Nav from "./components/Nav";
-import Articles from "./screens/articles/Articles";
 import ArticleInfo from "./screens/articles/ArticleInfo";
 
 
 function App() {
+
+  const [creator, setCreator] = useState()
+
   return (
     <div className="App">
       <Nav />
@@ -18,7 +20,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/articles" element={<Articles />} />
         <Route path="/article/:id" element={<ArticleInfo />} />
       </Routes>
     </div>

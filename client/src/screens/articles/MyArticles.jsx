@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getArticles } from "../../services/atricles.js";
-import ArticleComp from "../../components/ArticleComp.jsx";
+import ListAllArticles from "../../components/ListAllArticles.jsx";
 
 function Articles() {
   const [articles, setArticles] = useState([]);
@@ -20,9 +20,9 @@ function Articles() {
 
   return (
     <div>
-      <h1>Articles</h1>
+      <h1>My Articles</h1>
       {articles.map((articleData) => (
-        <ArticleComp article={articleData} />
+        <ListAllArticles article={articleData} />
       ))}
     </div>
   );

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import authService from "../services/auth.js";
 import { Link, useNavigate } from 'react-router-dom';
+import { getAllArticles } from "../services/atricles.js";
+import ListAllArticles from "../components/ListAllArticles.jsx";
+
 
 const Home = () => {
   const [user, setUser] = useState(null)
   const isAuthenticated = authService.isAuthenticated()
+  const [articles, setArticles] = useState([]);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -24,6 +28,21 @@ const Home = () => {
     }
   }, [navigate, isAuthenticated])
 
+  
+    useEffect(() => {
+      const fetchArticles = async () => {
+        try {
+          const allArticles = await getAllArticles();
+          setArticles(allArticles);
+        } catch (error) {
+          console.error("Error fetching articles:", error);
+        }
+      };
+  
+      fetchArticles();
+    }, []);
+
+
   if (!user) {
     return (
       <div>
@@ -32,10 +51,15 @@ const Home = () => {
       </div>
     )
   }
-
+console.log(user)
   return (
     <div className='h-screen w-screen'>
       <h2>Welcome, {user.name}!</h2>
+
+      <h1>All Articles</h1>
+      {articles.map((articleData) => (
+        <ListAllArticles article={articleData} />
+      ))}
     </div>
   )
 }

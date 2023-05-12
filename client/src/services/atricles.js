@@ -71,3 +71,18 @@ export const deleteArticle = async (id) => {
     throw error;
   }
 };
+
+export const getAllArticles = async () => {
+  try {
+    console.log(api);
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await api.get("/articles", { headers });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

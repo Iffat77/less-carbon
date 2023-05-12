@@ -1,7 +1,7 @@
 import Category from "../models/categoryModel.js";
 import asyncHandler from "express-async-handler";
 
-// Get all categories
+
 export const getCategories = asyncHandler(async (req, res) => {
   try {
     const categories = await Category.find();
@@ -11,7 +11,7 @@ export const getCategories = asyncHandler(async (req, res) => {
   }
 });
 
-// Get a single category by ID
+
 export const getCategoryById = asyncHandler(async (req, res) => {
   try {
     const { categoryId } = req.params;
@@ -26,7 +26,6 @@ export const getCategoryById = asyncHandler(async (req, res) => {
   }
 });
 
-// Create a new category
 export const createCategory = asyncHandler(async (req, res) => {
   try {
     const { name, description } = req.body;
@@ -43,7 +42,7 @@ export const createCategory = asyncHandler(async (req, res) => {
   }
 });
 
-// Update a category
+
 export const updateCategory = asyncHandler(async (req, res) => {
   try {
     const { categoryId } = req.params;
@@ -65,7 +64,7 @@ export const updateCategory = asyncHandler(async (req, res) => {
   }
 });
 
-// Delete a category
+
 export const deleteCategory = asyncHandler(async (req, res) => {
   try {
     const { categoryId } = req.params;
