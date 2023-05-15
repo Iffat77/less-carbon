@@ -7,20 +7,20 @@ import Register from "./screens/Register";
 import Login from "./screens/Login";
 import Nav from "./components/Nav";
 import ArticleInfo from "./screens/articles/ArticleInfo";
-
+import ArticleCreate from "./screens/articles/ArticleCreate";
 
 function App() {
 
-  const [creator, setCreator] = useState()
 
   return (
     <div className="App">
       <Nav />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setCreator/>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/article/:id" element={<ArticleInfo />} />
+        <Route path="/article/create" element={< ArticleCreate />} />
       </Routes>
     </div>
   );
