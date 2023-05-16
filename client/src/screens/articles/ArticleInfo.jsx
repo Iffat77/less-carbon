@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getArticle } from '../../services/atricles.js';
 
 
@@ -32,6 +32,14 @@ function ArticeInfo() {
       <div>{article.title}</div>
       <p>{article.content}</p>
       <p>{article.author}</p>
+      {console.log(article)}
+      <img src={article.images}></img>
+
+      
+  {/* temporary placement of edit link for testing */}
+  <Link to={`/article/${id}/edit`}>Edit Article</Link>
+
+      
     </div>
   );
 }

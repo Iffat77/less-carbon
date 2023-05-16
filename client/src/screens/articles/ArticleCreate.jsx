@@ -7,7 +7,7 @@ function ArticleCreate() {
   const [article, setArticle] = useState({
     title: "",
     content: "",
-    images: "",
+    images: [],
     })
 
   

@@ -8,6 +8,7 @@ import Login from "./screens/Login";
 import Nav from "./components/Nav";
 import ArticleInfo from "./screens/articles/ArticleInfo";
 import ArticleCreate from "./screens/articles/ArticleCreate";
+import ArticleEdit from "./screens/articles/ArticleEdit";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/article/:id" element={<ArticleInfo />} />
         <Route path="/article/create" element={< ArticleCreate />} />
+        <Route path="/article/:id/edit" element={< ArticleEdit />} />
       </Routes>
     </div>
   );
