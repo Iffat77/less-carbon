@@ -15,6 +15,7 @@ export const getArticles = async () => {
   }
 };
 
+
 export const getArticle = async (id) => {
   try {
     const token = localStorage.getItem("token");
@@ -80,7 +81,7 @@ export const getAllArticles = async () => {
       Authorization: `Bearer ${token}`,
     };
 
-    const response = await api.get("/articles", { headers });
+    const response = await api.get("/all", { headers });
     return response.data;
   } catch (error) {
     throw error;

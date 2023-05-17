@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getArticles } from "../../services/atricles.js";
 import ListAllArticles from "../../components/ListAllArticles.jsx";
 
-function Articles() {
+function MyArticles() {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -21,11 +21,14 @@ function Articles() {
   return (
     <div>
       <h1>My Articles</h1>
+
       {articles.map((articleData) => (
         <ListAllArticles article={articleData} />
       ))}
+
+      
     </div>
   );
 }
 
-export default Articles;
+export default MyArticles;

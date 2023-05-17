@@ -48,7 +48,6 @@ const Home = () => {
       </div>
     );
   }
-  console.log(user);
   return (
     <div className="h-screen w-screen">
       <h2>Welcome, {user.name}!</h2>
@@ -59,6 +58,7 @@ const Home = () => {
       ))}
 
       <Link to="/article/create">Create An Article</Link>
+      
     </div>
   );
 };
