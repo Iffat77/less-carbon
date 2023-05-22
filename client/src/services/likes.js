@@ -1,18 +1,22 @@
 import api from "./apiConfig";
 
-export const createLike = async (articleId) => {
+export const createLike = async (articleId, userId) => {
+  console.log("services fired",typeof(articleId), typeof(userId ))
   try {
     const token = localStorage.getItem("token");
     const headers = {
       Authorization: `Bearer ${token}`,
     };
 
-    const response = await api.post(`/articles/${articleId}/likes`, {}, { headers });
+    const data = { user: userId }
+
+    const response = await api.post(`/articles/${articleId}/likes`, data, { headers })
     return response.data;
   } catch (error) {
     throw error;
   }
 };
+
 
 export const getLikesForArticle = async (articleId) => {
   try {

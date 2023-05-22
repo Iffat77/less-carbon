@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getArticle } from "../../services/atricles.js";
 import authService from "../../services/auth.js";
+import Likes from "../../components/Likes.jsx";
 
 function ArticeInfo() {
   const { id } = useParams();
@@ -53,7 +54,11 @@ function ArticeInfo() {
       <p>{article.author}</p>
       <img src={article.images} alt="images" />
 
-      {/* temporary placement of edit link for testing */}
+      {/* Temporary testing Likes component */}
+      {/* {console.log(user._id)} */}
+      {user && <Likes articleId={id} user={user} />}
+
+      {/* Temporary placement of edit link for testing */}
       {showEdit && <Link to={`/article/${id}/edit`}>Edit Article</Link>}
     </div>
   );
