@@ -8,30 +8,28 @@ function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
+  });
 
-  const { email, password } = formData
-  const [error, setError] = useState(null)
-  const navigate = useNavigate()
-
-
+  const { email, password } = formData;
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await authService.login(email, password)
-      navigate("/")
+      await authService.login(email, password);
+      navigate("/");
     } catch (error) {
-      setError("Login failed. Please check your credentials.")
+      setError("Login failed. Please check your credentials.");
     }
-  }
+  };
 
   return (
     <div>
@@ -41,7 +39,7 @@ function Login() {
         </h1>
         <p>Login to Less Carbon</p>
       </section>
-  
+
       <section className="form">
         {error && <div className="error">{error}</div>}
         <form onSubmit={onSubmit}>
@@ -67,7 +65,7 @@ function Login() {
         </form>
       </section>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

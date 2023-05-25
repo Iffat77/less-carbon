@@ -58,7 +58,6 @@ const Home = () => {
       ))}
 
       <Link to="/article/create">Create An Article</Link>
-      
     </div>
   );
 };

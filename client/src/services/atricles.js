@@ -15,7 +15,6 @@ export const getArticles = async () => {
   }
 };
 
-
 export const getArticle = async (id) => {
   try {
     const token = localStorage.getItem("token");

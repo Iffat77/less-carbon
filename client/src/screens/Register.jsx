@@ -9,34 +9,34 @@ function Register() {
     email: "",
     password: "",
     rePassword: "",
-  })
-  const [error, setError] = useState(null)
-  const navigate = useNavigate()
+  });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const { name, email, password, rePassword } = formData
+  const { name, email, password, rePassword } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (password !== rePassword) {
-      setError("Passwords do not match")
-      return
+      setError("Passwords do not match");
+      return;
     }
     try {
-      const token = await authService.register(name, email, password)
-      localStorage.setItem("token", token)
+      const token = await authService.register(name, email, password);
+      localStorage.setItem("token", token);
       // Redirect to the login page or show a success message
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
-      setError(error.response.data.message)
+      setError(error.response.data.message);
     }
-  }
+  };
 
   return (
     <div>
@@ -88,7 +88,7 @@ function Register() {
         </form>
       </section>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;

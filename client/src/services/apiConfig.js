@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
 let apiUrl;
 
 const apiUrls = {
   production: "https://architecture-api-group7.herokuapp.com/",
-  development: "http://localhost:8000/api"
-}
+  development: "http://localhost:8000/api",
+};
 
 if (window.location.hostname === "localhost") {
   apiUrl = apiUrls.development;
@@ -14,7 +14,7 @@ if (window.location.hostname === "localhost") {
 }
 
 const api = axios.create({
-  baseURL: apiUrl
+  baseURL: apiUrl,
 });
 
 export default api;

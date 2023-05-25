@@ -22,6 +22,7 @@ export const createCommentForArticle = asyncHandler(async (req, res) => {
     const { content } = req.body;
 
     const article = await Article.findById(articleId);
+
     if (!article) {
       res.status(404);
       throw new Error("Article not found");
@@ -29,9 +30,11 @@ export const createCommentForArticle = asyncHandler(async (req, res) => {
 
     const comment = new Comment({
       content,
-      article: articleId,
       creator: req.user._id,
+      article: articleId,
     });
+
+    console.log("here", comment);
 
     await comment.save();
     article.comments.push(comment._id);
@@ -72,13 +75,18 @@ export const deleteCommentForArticle = asyncHandler(async (req, res) => {
   try {
     const { commentId } = req.params;
 
-    const comment = await Comment.findById(commentId);
+    // const populatedComment = await Comment.findById(commentId).populate('creator')
+    // console.log(populatedComment.creator)
+
+    const comment = await Comment.findById(commentId).populate("creator");
+
     if (!comment) {
       res.status(404);
       throw new Error("Comment not found");
     }
+    // console.log(typeof comment.creator._id, typeof req.user._id)
 
-    if (comment.creator.toString() !== req.user._id) {
+    if (comment.creator._id.toString() !== req.user._id.toString()) {
       res.status(401);
       throw new Error("Not authorized to delete this comment");
     }

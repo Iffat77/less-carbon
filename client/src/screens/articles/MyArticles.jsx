@@ -25,8 +25,6 @@ function MyArticles() {
       {articles.map((articleData) => (
         <ListAllArticles article={articleData} />
       ))}
-
-      
     </div>
   );
 }
