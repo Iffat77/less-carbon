@@ -40,52 +40,98 @@ function Register() {
 
   return (
     <div>
-      <section>
-        <h1>
-          <FaUser /> Register
-        </h1>
-        <p>Please Create an Account</p>
-      </section>
+      <section className="form bg-gray-50">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0  ">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                Create an account
+              </h1>
 
-      <section className="form">
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={name}
-            placeholder="Enter Username"
-            onChange={onChange}
-          />
+              <form className="space-y-4 md:space-y-6" onSubmit={onSubmit}>
+                <div>
+                  <label
+                    for="name"
+                    className="block mb-2 text-sm font-medium text-gray-900 text-left"
+                  >
+                    Name
+                  </label>
 
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            placeholder="Enter Email"
-            onChange={onChange}
-          />
+                  <input
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={name}
+                    placeholder="Enter Username"
+                    onChange={onChange}
+                  />
+                </div>
+                <div>
+                  <label
+                    for="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 text-left"
+                  >
+                    Email
+                  </label>
 
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            placeholder="Enter Password"
-            onChange={onChange}
-          />
+                  <input
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    placeholder="Enter Email"
+                    onChange={onChange}
+                  />
+                </div>
+                <div>
+                  <label
+                    for="password"
+                    className="block mb-2 text-sm font-medium text-gray-900 text-left"
+                  >
+                    Password
+                  </label>
+                  <input
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    placeholder="Enter Password"
+                    onChange={onChange}
+                  />
+                </div>
 
-          <input
-            type="password"
-            id="re-password"
-            name="rePassword"
-            value={rePassword}
-            placeholder="Confirm Password"
-            onChange={onChange}
-          />
-          <button type="submit">Submit</button>
-        </form>
+                <div>
+                  <label
+                    for="confirmpass"
+                    className="block mb-2 text-sm font-medium text-gray-900 text-left"
+                  >
+                    Confirm Password
+                  </label>
+
+                  <input
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    type="password"
+                    id="re-password"
+                    name="rePassword"
+                    value={rePassword}
+                    placeholder="Confirm Password"
+                    onChange={onChange}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-gray-50 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                >
+                  Register
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
