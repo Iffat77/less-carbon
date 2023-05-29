@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getArticle } from "../../services/atricles.js";
+import { getArticle, deleteArticle } from "../../services/atricles.js";
 import authService from "../../services/auth.js";
 import Likes from "../../components/LikesComp.jsx";
 import * as commentService from "../../services/comments";
@@ -76,6 +76,7 @@ function ArticeInfo() {
     }
   };
 
+
   useEffect(() => {
     if (user && article && user._id === article.author) {
       setShowEdit(true);
@@ -89,7 +90,7 @@ function ArticeInfo() {
   return (
     <div>
       <h1>Article Info</h1>
-      <p>{article._id}</p>
+      {/* <p>{article._id}</p> */}
       <div>{article.title}</div>
       <p>{article.content}</p>
       <p>{article.author}</p>

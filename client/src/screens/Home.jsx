@@ -49,15 +49,28 @@ const Home = () => {
     );
   }
   return (
-    <div className="h-screen w-screen">
-      <h2>Welcome, {user.name}!</h2>
-
-      <h1>All Articles</h1>
-      {articles.map((articleData) => (
-        <ListAllArticles article={articleData} />
-      ))}
-
-      <Link to="/article/create">Create An Article</Link>
+    <div>
+      <section className="bg-white">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+            <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 ">
+              Here's Whats New
+              {/* {user.name} */}
+            </h2>
+            <p className="font-light text-gray-500 sm:text-xl">
+              Some articles to connect with
+            </p>
+          </div>
+          <div className="grid gap-8 lg:grid-cols-2">
+            {articles.map((articleData) => (
+              <ListAllArticles article={articleData} />
+            ))}
+          </div>
+          <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16">
+            <Link to="/article/create" className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2 ">Create An Article</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

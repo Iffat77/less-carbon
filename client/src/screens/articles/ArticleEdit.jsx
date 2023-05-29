@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateArticle, getArticle } from "../../services/atricles";
+import { updateArticle, getArticle, deleteArticle } from "../../services/atricles";
 
 function ArticleEdit() {
   const [article, setArticle] = useState({
@@ -21,6 +21,16 @@ function ArticleEdit() {
     fetchArticles();
   }, [id]);
 
+
+  const handleDeleteArticle = async (articleId) => {
+    try {
+      await deleteArticle(articleId);
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Error deleting article:", error);
+    }
+  };
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setArticle({
@@ -62,6 +72,10 @@ function ArticleEdit() {
 
         <button type="submit">Update Article</button>
       </form>
+
+      <button onClick={() => handleDeleteArticle(article._id)}>
+        Delete Article
+      </button>
     </div>
   );
 }

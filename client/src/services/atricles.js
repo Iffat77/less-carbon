@@ -65,7 +65,7 @@ export const deleteArticle = async (id) => {
       Authorization: `Bearer ${token}`,
     };
 
-    const response = await api.delete(`articles/${id}`, { headers });
+    const response = await api.delete(`article/${id}`, { headers });
     return response.data;
   } catch (error) {
     throw error;

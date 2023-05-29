@@ -86,6 +86,7 @@ export const deleteArticle = asyncHandler(async (req, res) => {
     const userId = req.user.id;
 
     const article = await Article.findById(id);
+    console.log(article)
 
     if (!article) {
       res.status(404);
