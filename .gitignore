@@ -13,4 +13,3 @@
 .env.test.local
 .env.production.local
 
-# git rm --cached .env
