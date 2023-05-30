@@ -3,9 +3,8 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getArticle, deleteArticle } from "../../services/atricles.js";
 import authService from "../../services/auth.js";
 import Likes from "../../components/LikesComp.jsx";
-import * as commentService from "../../services/comments";
+import * as commentService from "../../services/comments.js";
 import CreateComment from "../../components/CreateComment.jsx";
-// import CommentComp from "../../components/CommentComp.jsx";
 
 function ArticeInfo() {
   const { id } = useParams();
@@ -56,9 +55,7 @@ function ArticeInfo() {
 
   const fetchNewComments = async () => {
     try {
-      const newComment = await commentService.getCommentsForArticle(
-        id
-      );
+      const newComment = await commentService.getCommentsForArticle(id);
       setComments(newComment);
     } catch (error) {
       console.error("Error fetching updated comments:", error);
@@ -76,7 +73,6 @@ function ArticeInfo() {
     }
   };
 
-
   useEffect(() => {
     if (user && article && user._id === article.author) {
       setShowEdit(true);
@@ -88,36 +84,57 @@ function ArticeInfo() {
   }
 
   return (
-    <div>
-      <h1>Article Info</h1>
+    <div className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white">
       {/* <p>{article._id}</p> */}
-      <div>{article.title}</div>
-      <p>{article.content}</p>
-      <p>{article.author}</p>
-      <img src={article.images} alt="images" />
+      <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+        <div className="mx-auto w-full max-w-2xl ">
+          <div className="mb-4 lg:mb-6">
+            <div className="flex items-center mb-6">
+              <p className="text-xl font-bold ">{article.author}</p>
+            </div>
+            <h2 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+              {article.title}
+            </h2>
+          </div>
 
-      {/* Temporary testing Likes component */}
-      {/* {console.log(user._id)} */}
-      {user && <Likes articleId={id} user={user} />}
+          <p className="">{article.content}</p>
+          {/* <img src={article.images} alt="images" /> */}
 
-      <div className="border-2 border-black">
-        <h2>Comments</h2>
-        {comments.map((comment) => (
-          <div key={comment._id}>
-            <p>{comment.content}</p>
-            {comment.creator === user?._id && (
-              <button onClick={() => handleDeleteComment(comment._id)}>
-                Delete
-              </button>
+          {/* Temporary testing Likes component */}
+          {/* {console.log(user._id)} */}
+          {/* {user && <Likes articleId={id} user={user} />} */}
+
+          <div className="border-2 border-black">
+            <h2>Comments</h2>
+            {comments.map((comment) => (
+              <div key={comment._id}>
+                <p>{comment.content}</p>
+                {comment.creator === user?._id && (
+                  <button onClick={() => handleDeleteComment(comment._id)}>
+                    Delete
+                  </button>
+                )}
+              </div>
+            ))}
+
+            {user && (
+              <CreateComment id={id} fetchNewComments={fetchNewComments} />
             )}
           </div>
-        ))}
+        </div>
+        <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16">
+          {showEdit && (
+            <Link
+              to={`/article/${id}/edit`}
+              className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2"
+            >
+              Edit Article
+            </Link>
+          )}
+        </div>
 
-        {user && <CreateComment id={id} fetchNewComments={fetchNewComments} />}
+
       </div>
-
-      {/* Temporary placement of edit link for testing */}
-      {showEdit && <Link to={`/article/${id}/edit`}>Edit Article</Link>}
     </div>
   );
 }
