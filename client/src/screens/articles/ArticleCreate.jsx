@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createArticle } from "../../services/atricles.js";
+import TextEditor from "../../components/TextEditor.jsx";
 
 function ArticleCreate() {
   const [article, setArticle] = useState({
@@ -19,28 +20,34 @@ function ArticleCreate() {
     });
   };
 
+  const handleContentChange = (content) => {
+    setArticle({
+      ...article,
+      content: content, // Update the content state
+    });
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await createArticle(article);
     navigate("/", { replace: true });
   };
+  
   return (
-    <div>
+    <div className="h-screen ">
       ArticleCreate
-      <form onSubmit={handleSubmit}>
+      <form
+        className=" flex flex-col gap-10 items-center h-2/3  w-full border-2 border-red-600 "
+        onSubmit={handleSubmit}
+      >
         <input
           placeholder="Title"
           name="title"
           value={article.title}
           onChange={handleChange}
         />
-        <textarea
-          placeholder="Content"
-          name="content"
-          value={article.content}
-          onChange={handleChange}
-          rows={5}
-        />
+        <TextEditor onContentChange={handleContentChange} />
         <input
           placeholder="Image Links"
           name="image"

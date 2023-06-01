@@ -12,3 +12,4 @@
 .env.production.local
 
 #updates
+node_modules
