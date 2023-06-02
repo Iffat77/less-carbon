@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateArticle, getArticle, deleteArticle } from "../../services/atricles";
+import TextEditor from "../../components/TextEditor";
+
 
 function ArticleEdit() {
   const [article, setArticle] = useState({
@@ -39,6 +41,13 @@ function ArticleEdit() {
     });
   };
 
+  const handleContentChange = (content) => {
+    setArticle({
+      ...article,
+      content: content, 
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await updateArticle(id, article);
@@ -56,13 +65,8 @@ function ArticleEdit() {
           value={article.title}
           onChange={handleChange}
         />
-        <textarea
-          placeholder="Content"
-          name="content"
-          value={article.content}
-          onChange={handleChange}
-          rows={5}
-        />
+        <TextEditor
+          onContentChange={handleContentChange} />
         <input
           placeholder="Image Links"
           name="image"

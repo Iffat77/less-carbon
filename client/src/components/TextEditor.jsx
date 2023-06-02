@@ -1,9 +1,8 @@
-// Import React dependencies.
 import React, { useState, useCallback, useMemo } from "react";
-// Import the Slate editor factory.
 import { createEditor } from "slate";
 import { Editor, Transforms, Element as SlateElement } from "slate";
-// Import the Slate components and React plugin.
+import { Range } from "slate";
+import { Selection } from "slate-react";
 import { Slate, Editable, withReact } from "slate-react";
 
 const initialValue = [
@@ -15,7 +14,7 @@ const initialValue = [
 
 const TextEditor = ({ onContentChange }) => {
   const [editor] = useState(() => withReact(createEditor()));
-  // Update the initial content to be pulled from Local Storage if it exists.
+
   const initialValue = useMemo(
     () =>
       JSON.parse(localStorage.getItem("content")) || [
@@ -27,62 +26,58 @@ const TextEditor = ({ onContentChange }) => {
     []
   );
 
+  //will reposition to toolBar for indent functionality. 
+  const handleKeyDown = (event) => {
+    if (!event.ctrlKey || event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+
+    const { selection } = editor;
+
+    if (selection && Range.isCollapsed(selection)) {
+      const [start] = Range.edges(selection);
+      const wordBefore = Editor.before(editor, start, { unit: "word" });
+      const before = wordBefore && Editor.before(editor, wordBefore);
+      const beforeRange = before && Editor.range(editor, before, start);
+      const beforeText = beforeRange && Editor.string(editor, beforeRange);
+
+      if (beforeText === "\t") {
+        Transforms.select(editor, beforeRange);
+        Transforms.delete(editor);
+      } else {
+        Transforms.insertText(editor, "\t");
+      }
+    } else {
+      Transforms.insertText(editor, "\t");
+    }
+  };
+
   return (
     <div className="w-screen flex justify-center border border-green-400">
-      <Slate editor={editor}
+      <Slate
+        editor={editor}
         initialValue={initialValue}
-        onChange={value => {
+        onChange={(value) => {
           const isAstChange = editor.operations.some(
-            op => 'set_selection' !== op.type
-          )
+            (op) => "set_selection" !== op.type
+          );
           if (isAstChange) {
-            // Save the value to Local Storage.
-            const content = JSON.stringify(value)
-            localStorage.setItem('content', content)
-            onContentChange(content)
+            const content = JSON.stringify(value);
+            localStorage.setItem("content", content);
+            onContentChange(content);
           }
         }}
-      
       >
         <Editable
-          className=" min-h-[200px] md:w-1/2 lg:min-w-[500px] border-2 border-violet-300"
-          disableDefaultStyles
+          className="min-h-[200px] md:w-1/2 lg:min-w-[500px] p-4 border-2 border-violet-300"
+          style={{ textAlign: "left" }}
+          onKeyDown={handleKeyDown}
         />
       </Slate>
     </div>
   );
 };
 
-const CodeElement = (props) => {
-  return (
-    <pre {...props.attributes}>
-      <code>{props.children}</code>
-    </pre>
-  );
-};
-
-const DefaultElement = (props) => {
-  return <p {...props.attributes}>{props.children}</p>;
-};
-
 export default TextEditor;
-
-// renderElement={renderElement}
-// onKeyDown={(event) => {
-//   if (event.key === "`" && event.ctrlKey) {
-//     event.preventDefault();
-//     // Determine whether any of the currently selected blocks are code blocks.
-//     const [match] = Editor.nodes(editor, {
-//       match: (n) => n.type === "code",
-//     });
-//     // Toggle the block type depending on whether there's already a match.
-//     Transforms.setNodes(
-//       editor,
-//       { type: match ? "paragraph" : "code" },
-//       {
-//         match: (n) =>
-//           SlateElement.isElement(n) && Editor.isBlock(editor, n),
-//       }
-//     );
-//   }
-// }}

@@ -23,7 +23,7 @@ function ArticleCreate() {
   const handleContentChange = (content) => {
     setArticle({
       ...article,
-      content: content, // Update the content state
+      content: content, 
     });
   };
 
@@ -36,24 +36,26 @@ function ArticleCreate() {
   
   return (
     <div className="h-screen ">
-      ArticleCreate
       <form
-        className=" flex flex-col gap-10 items-center h-2/3  w-full border-2 border-red-600 "
+        className=" flex flex-col gap-10 items-center mt-4 p-4 h-full w-full border-2 overflow-auto border-red-600 "
         onSubmit={handleSubmit}
       >
         <input
+          className="md:w-1/2 lg:min-w-[500px] text-lg md:text-2xl "
           placeholder="Title"
           name="title"
           value={article.title}
           onChange={handleChange}
         />
-        <TextEditor onContentChange={handleContentChange} />
-        <input
+        <TextEditor
+          placeholder="Content"
+          onContentChange={handleContentChange} />
+        {/* <input
           placeholder="Image Links"
           name="image"
           value={article.images}
           onChange={handleChange}
-        />
+        /> */}
 
         <button type="submit">Post</button>
       </form>

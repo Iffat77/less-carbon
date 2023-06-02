@@ -15,6 +15,21 @@ function ArticeInfo() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
+  const TextRenderer = ({ serializedContent }) => {
+    const content = JSON.parse(serializedContent);
+
+    return (
+      <>
+        {content.map((paragraph, index) => (
+          // <pre className="w-full" key={index}>{paragraph.children[0].text}</pre>
+          <p className="mb-4 text-left" key={index}>
+            {paragraph.children[0].text}
+          </p>
+        ))}
+      </>
+    );
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -97,7 +112,10 @@ function ArticeInfo() {
             </h2>
           </div>
 
-          <p className="">{article.content}</p>
+          {/* <p className="">{article.content}</p> */}
+          <div className=" border-2 p-4 mb-4 border-gray-300 overflow-auto">
+            <TextRenderer serializedContent={article.content} />
+          </div>
           {/* <img src={article.images} alt="images" /> */}
 
           {/* Temporary testing Likes component */}
@@ -132,8 +150,6 @@ function ArticeInfo() {
             </Link>
           )}
         </div>
-
-
       </div>
     </div>
   );
