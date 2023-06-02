@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateArticle, getArticle, deleteArticle } from "../../services/atricles";
+import {
+  updateArticle,
+  getArticle,
+  deleteArticle,
+} from "../../services/atricles";
 import TextEditor from "../../components/TextEditor";
-
 
 function ArticleEdit() {
   const [article, setArticle] = useState({
@@ -23,7 +26,6 @@ function ArticleEdit() {
     fetchArticles();
   }, [id]);
 
-
   const handleDeleteArticle = async (articleId) => {
     try {
       await deleteArticle(articleId);
@@ -32,7 +34,7 @@ function ArticleEdit() {
       console.error("Error deleting article:", error);
     }
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setArticle({
@@ -44,7 +46,7 @@ function ArticleEdit() {
   const handleContentChange = (content) => {
     setArticle({
       ...article,
-      content: content, 
+      content: content,
     });
   };
 
@@ -55,31 +57,39 @@ function ArticleEdit() {
   };
 
   return (
-    <div>
-      <h2>Edit Article</h2>
-
-      <form onSubmit={handleSubmit}>
+    <div className="h-screen">
+      <form
+        className=" flex flex-col gap-10 items-center mt-4 py-4 h-full w-full overflow-auto "
+        onSubmit={handleSubmit}
+      >
         <input
+          className="md:w-1/2 lg:min-w-[500px]text-lg md:text-2xl focus:outline-none"
           placeholder="Title"
           name="title"
           value={article.title}
           onChange={handleChange}
         />
         <TextEditor
-          onContentChange={handleContentChange} />
-        <input
-          placeholder="Image Links"
-          name="image"
-          value={article.images}
-          onChange={handleChange}
+          placeholder="Content"
+          onContentChange={handleContentChange}
         />
 
-        <button type="submit">Update Article</button>
-      </form>
-
-      <button onClick={() => handleDeleteArticle(article._id)}>
+        <button
+          className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300  font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2"
+          type="submit"
+        >
+          Post
+        </button>
+      <button
+        className= "text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300  font-medium rounded-lg text-sm lg:text-md px-5 py-2.5"
+        onClick={() => handleDeleteArticle(article._id)}
+      >
         Delete Article
       </button>
+      </form>
+      <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16"> 
+      </div>
+
     </div>
   );
 }

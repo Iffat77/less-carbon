@@ -67,7 +67,7 @@ const Home = () => {
             ))}
           </div>
           <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16">
-            <Link to="/article/create" className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2 ">Create An Article</Link>
+            <Link to="/article/create" className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2 ">Create An Article</Link>
           </div>
         </div>
       </section>

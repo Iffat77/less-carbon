@@ -8,23 +8,24 @@ import { Slate, Editable, withReact } from "slate-react";
 const initialValue = [
   {
     type: "paragraph",
-    children: [{ text: "A line of text in a paragraph." }],
+    children: [{
+      text: "Create a captivating article that leaves an impact." }],
   },
 ];
 
 const TextEditor = ({ onContentChange }) => {
   const [editor] = useState(() => withReact(createEditor()));
 
-  const initialValue = useMemo(
-    () =>
-      JSON.parse(localStorage.getItem("content")) || [
-        {
-          type: "paragraph",
-          children: [{ text: "A line of text in a paragraph." }],
-        },
-      ],
-    []
-  );
+  // const initialValue = useMemo(
+  //   () =>
+  //     JSON.parse(localStorage.getItem("content")) || [
+  //       {
+  //         type: "paragraph",
+  //         children: [{ text: "A line of text in a paragraph." }],
+  //       },
+  //     ],
+  //   []
+  // );
 
   //will reposition to toolBar for indent functionality. 
   const handleKeyDown = (event) => {
@@ -55,7 +56,7 @@ const TextEditor = ({ onContentChange }) => {
   };
 
   return (
-    <div className="w-screen flex justify-center border border-green-400">
+    <div className="w-screen flex justify-center  ">
       <Slate
         editor={editor}
         initialValue={initialValue}
@@ -65,13 +66,13 @@ const TextEditor = ({ onContentChange }) => {
           );
           if (isAstChange) {
             const content = JSON.stringify(value);
-            localStorage.setItem("content", content);
+            // localStorage.setItem("content", content);
             onContentChange(content);
           }
         }}
       >
         <Editable
-          className="min-h-[200px] md:w-1/2 lg:min-w-[500px] p-4 border-2 border-violet-300"
+          className="min-h-[200px] md:w-1/2 lg:min-w-[500px] p-2 focus:outline-none"
           style={{ textAlign: "left" }}
           onKeyDown={handleKeyDown}
         />

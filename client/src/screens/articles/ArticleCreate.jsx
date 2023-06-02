@@ -37,11 +37,11 @@ function ArticleCreate() {
   return (
     <div className="h-screen ">
       <form
-        className=" flex flex-col gap-10 items-center mt-4 p-4 h-full w-full border-2 overflow-auto border-red-600 "
+        className=" flex flex-col gap-10 items-center mt-4 p-4 h-full w-full overflow-auto "
         onSubmit={handleSubmit}
       >
         <input
-          className="md:w-1/2 lg:min-w-[500px] text-lg md:text-2xl "
+          className="md:w-1/2 lg:min-w-[500px]text-lg md:text-2xl focus:outline-none"
           placeholder="Title"
           name="title"
           value={article.title}
@@ -57,7 +57,7 @@ function ArticleCreate() {
           onChange={handleChange}
         /> */}
 
-        <button type="submit">Post</button>
+        <button className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300  font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2" type="submit">Post</button>
       </form>
     </div>
   );

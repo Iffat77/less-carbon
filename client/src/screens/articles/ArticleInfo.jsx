@@ -5,6 +5,7 @@ import authService from "../../services/auth.js";
 import Likes from "../../components/LikesComp.jsx";
 import * as commentService from "../../services/comments.js";
 import CreateComment from "../../components/CreateComment.jsx";
+import { getUserNameById } from "../../services/findUser.js";
 
 function ArticeInfo() {
   const { id } = useParams();
@@ -14,6 +15,7 @@ function ArticeInfo() {
   const [showEdit, setShowEdit] = useState(false);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [authorName, setAuthorName] = useState("");
 
   const TextRenderer = ({ serializedContent }) => {
     const content = JSON.parse(serializedContent);
@@ -41,6 +43,21 @@ function ArticeInfo() {
     };
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const fetchAuthor = async () => {
+      try {
+        const userName = await getUserNameById(article.author);
+        setAuthorName(userName);
+      } catch (error) {
+        console.error("Error fetching author:", error);
+      }
+    };
+
+    if (article) {
+      fetchAuthor();
+    }
+  }, [article]);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -99,21 +116,19 @@ function ArticeInfo() {
   }
 
   return (
-    <div className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white">
-      {/* <p>{article._id}</p> */}
-      <div className="flex justify-between px-4 mx-auto max-w-screen-xl ">
+    <div className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
+      <div className=" md:flex justify-between px-4 mx-auto max-w-screen-xl ">
         <div className="mx-auto w-full max-w-2xl ">
           <div className="mb-4 lg:mb-6">
-            <div className="flex items-center mb-6">
-              <p className="text-xl font-bold ">{article.author}</p>
-            </div>
-            <h2 className="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h2 className="mb-4 text-3xl text-left font-bold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
               {article.title}
             </h2>
+            <div className="flex items-center mb-6">
+              <p className="text-xl font-semibold ">- {authorName}</p>
+            </div>
           </div>
-
-          {/* <p className="">{article.content}</p> */}
-          <div className=" border-2 p-4 mb-4 border-gray-300 overflow-auto">
+          <hr className="w-8 h-8 mx-auto my-8 bg-gray-200 border-0 rounded mt-24" />
+          <div className=" mt-24 p-4 mb-4 overflow-auto text-lg">
             <TextRenderer serializedContent={article.content} />
           </div>
           {/* <img src={article.images} alt="images" /> */}
