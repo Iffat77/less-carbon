@@ -24,7 +24,7 @@ function ListAllArticles({ article }) {
     <div>
       <Link to={`/article/${article._id}`}>
         <div className="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
-          <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+          <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
             {article.title}
           </h3>
           <div className="flex justify-between items-center">

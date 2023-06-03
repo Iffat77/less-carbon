@@ -58,7 +58,7 @@ function Register() {
                   </label>
 
                   <input
-                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none"
                     type="text"
                     id="name"
                     name="name"
@@ -76,7 +76,7 @@ function Register() {
                   </label>
 
                   <input
-                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none"
                     type="email"
                     id="email"
                     name="email"
@@ -93,7 +93,7 @@ function Register() {
                     Password
                   </label>
                   <input
-                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none"
                     type="password"
                     id="password"
                     name="password"
@@ -112,7 +112,7 @@ function Register() {
                   </label>
 
                   <input
-                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                    className="bg-gray-50 hover:bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:outline-none"
                     type="password"
                     id="re-password"
                     name="rePassword"

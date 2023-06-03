@@ -16,6 +16,7 @@ function ArticeInfo() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [authorName, setAuthorName] = useState("");
+  const [commentCreator, setCommentCreator] = useState("");
 
   const TextRenderer = ({ serializedContent }) => {
     const content = JSON.parse(serializedContent);
@@ -31,6 +32,17 @@ function ArticeInfo() {
       </>
     );
   };
+
+  const fetchCommentAuthor = async (creatorId) => {
+    try {
+      const userName = await getUserNameById(creatorId);
+      setCommentCreator(userName);
+      console.log(commentCreator) 
+    } catch (error) {
+      console.error("Error fetching author:", error);
+    }
+  };
+  
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -59,6 +71,7 @@ function ArticeInfo() {
     }
   }, [article]);
 
+
   useEffect(() => {
     const fetchArticle = async () => {
       try {
@@ -72,22 +85,54 @@ function ArticeInfo() {
     fetchArticle();
   }, [id]);
 
+  // useEffect(() => {
+  //   const fetchComments = async () => {
+  //     try {
+  //       const commentsData = await commentService.getCommentsForArticle(id);
+  //       setComments(commentsData);
+
+  //       for (const comment of commentsData) {
+  //         console.log(comment.creator)
+  //         fetchCommentAuthor(comment.creator);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching comments:", error);
+  //     }
+  //   };
+
+  //   fetchComments();
+  // }, [id]);
+
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const commentsData = await commentService.getCommentsForArticle(id);
+  
+        for (let i = 0; i < commentsData.length; i++) {
+          const comment = commentsData[i];
+          const userName = await getUserNameById(comment.creator);
+          commentsData[i] = { ...comment, authorName: userName };
+        }
+  
         setComments(commentsData);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
     };
-
+  
     fetchComments();
   }, [id]);
 
   const fetchNewComments = async () => {
     try {
       const newComment = await commentService.getCommentsForArticle(id);
+
+      for (let i = 0; i < newComment.length; i++) {
+        const comment = newComment[i];
+        const userName = await getUserNameById(comment.creator);
+        newComment[i] = { ...comment, authorName: userName };
+      }
+
       setComments(newComment);
     } catch (error) {
       console.error("Error fetching updated comments:", error);
@@ -137,22 +182,28 @@ function ArticeInfo() {
           {/* {console.log(user._id)} */}
           {/* {user && <Likes articleId={id} user={user} />} */}
 
-          <div className="border-2 border-black">
-            <h2>Comments</h2>
-            {comments.map((comment) => (
-              <div key={comment._id}>
-                <p>{comment.content}</p>
-                {comment.creator === user?._id && (
-                  <button onClick={() => handleDeleteComment(comment._id)}>
-                    Delete
-                  </button>
-                )}
-              </div>
-            ))}
-
-            {user && (
+          <div className="">
+          {user && (
               <CreateComment id={id} fetchNewComments={fetchNewComments} />
             )}
+   {comments.map((comment) => (
+  <div className="p-4 mb-6 bg-gray-100 text-gray-700 rounded-lg flex flex-col gap-4 overflow-hidden" key={comment._id}>
+    <div className="flex gap-4 items-center mb-2"> 
+      <p>{comment.authorName}</p>
+      <p>{comment.createdAt}</p>
+    </div>
+    <p className="my-4 text-left">{comment.content}</p>
+    {comment.creator === user?._id && (
+      <button
+        className="w-1/4 text-gray-800 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2"
+        onClick={() => handleDeleteComment(comment._id)}>
+        Delete
+      </button>
+    )}
+  </div>
+))}
+
+            
           </div>
         </div>
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16">

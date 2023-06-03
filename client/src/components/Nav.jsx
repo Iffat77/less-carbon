@@ -14,42 +14,45 @@ function Nav() {
   };
 
   return (
-    <div className="w-screen h-1/6  border border-blue-300">
-      <div className="flex flex-wrap items-center justify-between mx-auto mt-3">
-        <div className="logo font-bold text-2xl">
-          <Link to="/">Less Carbon</Link>
-        </div>
+    <div className="bg-white  ">
+      <div className=" flex flex-wrap items-center justify-between p-2">
+        <Link className="flex " to="/">
+          <img className="h-8 mr-3"></img>
+          <span className="self-center text-2xl font-semibold whitespace-nowrap">Less Carbon</span>
+          </Link>
+        
 
-        <ul className="w-1/4 flex flex-row gap-4 justify-center">
+        <ul className="flex sm:flex-col text-xl p-4 md:p-0 mt-4 md:mr-4 font-medium  rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
           {authService.isAuthenticated() ? (
             <>
               <li>
-                <Link to="/profile">
-                  <FaUser /> Profile
+                <Link className="block py-2 pl-3 pr-4 text-gray-700 rounded  md:hover:bg-transparent 0 md:p-0 " to="/profile">
+                  <FaUser /> 
                 </Link>
               </li>
-              <li>
-                <button onClick={handleLogout}>
-                  <FaSignOutAlt /> Logout
-                </button>
-              </li>
+
+                <li className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:cursor-pointer md:hover:bg-transparent 0 md:p-0 " onClick={handleLogout}>
+                  <FaSignOutAlt /> 
+                </li>
+       
             </>
           ) : (
             <>
               <li>
-                <Link to="/login">
-                  <FaSignInAlt /> Login
+                <Link className="block text-lg py-2 pl-3 pr-4 text-gray-700 rounded  md:hover:bg-transparent 0 md:p-0 " to="/login">
+                  Login
                 </Link>
               </li>
               <li>
-                <Link to="/register">
-                  <FaUser /> Register
+                <Link className="block text-lg py-2 pl-3 pr-4 text-gray-700 rounded hover:cursor-pointer  md:hover:bg-transparent 0 md:p-0 " to="/register">
+                  Register
                 </Link>
               </li>
             </>
           )}
         </ul>
       </div>
+
     </div>
   );
 }
