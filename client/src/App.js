@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       <Nav />
       <Routes>
-        <Route path="/" element={<Home setCreator/>} />
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/article/:id" element={<ArticleInfo />} />
