@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 import chalk from "chalk";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const MONGODB_URI =
   process.env.PROD_MONGODB || "mongodb://127.0.0.1/less-carbon";
+
 
 // Uncomment to debug Mongoose queries
 // mongoose.set('debug', true)
