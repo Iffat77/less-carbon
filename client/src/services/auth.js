@@ -3,8 +3,8 @@ import api from "./apiConfig";
 
 // Remider to update url before prod NOTE- fugure out api import issue
 
-// const baseUrl = "https://less-carbon-mongodb-api.onrender.com/api/users";
-const baseUrl = "http://localhost:8000/api/users";
+const baseUrl = "https://less-carbon-mongodb-api.onrender.com/api/users";
+// const baseUrl = "http://localhost:8000/api/users";
 
 
 const authService = {
