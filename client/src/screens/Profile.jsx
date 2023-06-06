@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import authService from "../services/auth.js";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllArticles } from "../services/atricles.js";
+import { getArticles } from "../services/atricles.js";
 import ListAllArticles from "../components/ListAllArticles.jsx";
 
-const Home = () => {
+function Profile() {
+  const [articles, setArticles] = useState([]);
   const [user, setUser] = useState(null);
   const isAuthenticated = authService.isAuthenticated();
-  const [articles, setArticles] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/pub-home");
+      navigate("/login");
     } else {
       const fetchUser = async () => {
         try {
@@ -30,7 +31,7 @@ const Home = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const allArticles = await getAllArticles();
+        const allArticles = await getArticles();
         setArticles(allArticles);
       } catch (error) {
         console.error("Error fetching articles:", error);
@@ -59,23 +60,21 @@ const Home = () => {
   }
   return (
     <div>
-      <section className="bg-white">
-        <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-          <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-            <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 ">
-              Here's Whats New
-              {/* {user.name} */}
-            </h2>
-            <p className="font-light text-gray-500 sm:text-xl">
-              Some articles to connect with
-            </p>
-          </div>
-          <div className="grid gap-8 lg:grid-cols-2">
-            {articles.map((articleData) => (
-              <ListAllArticles article={articleData} />
-            ))}
-          </div>
-          <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16">
+      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+          <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 ">
+            {user.name}'s Articles
+          </h2>
+          <p className="font-light text-gray-500 sm:text-xl">
+          "Your Voice, Share, Inspire, and Empower!"
+          </p>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-2">
+          {articles.map((articleData) => (
+            <ListAllArticles article={articleData} />
+          ))}
+        </div>
+        <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16">
             <Link
               to="/article/create"
               className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2 "
@@ -83,10 +82,9 @@ const Home = () => {
               Create An Article
             </Link>
           </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
-};
+}
 
-export default Home;
+export default Profile;

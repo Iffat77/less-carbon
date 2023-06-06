@@ -37,10 +37,19 @@ function ArticleEdit() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setArticle({
-      ...article,
-      [name]: value,
-    });
+  
+    if (name === "image") {
+      const imageLinks = value.split("\n");
+      setArticle({
+        ...article,
+        images: imageLinks,
+      });
+    } else {
+      setArticle({
+        ...article,
+        [name]: value,
+      });
+    }
   };
 
   const handleContentChange = (content) => {
@@ -72,6 +81,13 @@ function ArticleEdit() {
         <TextEditor
           placeholder="Content"
           onContentChange={handleContentChange}
+        />
+        <input
+          className="md:w-1/2 lg:min-w-[500px]text-md md:text-lg focus:outline-none p-2"
+          placeholder="Image Links"
+          name="image"
+          value={article.images}
+          onChange={handleChange}
         />
 
         <button

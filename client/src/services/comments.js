@@ -16,7 +16,6 @@ export const createCommentForArticle = async (articleId, body) => {
       Authorization: `Bearer ${token}`,
     };
 
-    console.log("service for comment fired", articleId, body);
     const response = await api.post(`/articles/${articleId}/comments`, body, {
       headers,
     });

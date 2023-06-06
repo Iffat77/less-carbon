@@ -9,6 +9,7 @@ router.post("/users/login", controllers.loginUser);
 router.get("/users/me", protect, controllers.getUser);
 router.get("/users/:id", protect, controllers.getUserNameById);
 
+router.get("/users/pub/:id", controllers.getPubUserNameById);
 
 
 export default router;

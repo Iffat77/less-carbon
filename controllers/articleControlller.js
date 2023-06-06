@@ -86,7 +86,6 @@ export const deleteArticle = asyncHandler(async (req, res) => {
     const userId = req.user.id;
 
     const article = await Article.findById(id);
-    console.log(article)
 
     if (!article) {
       res.status(404);
@@ -116,6 +115,37 @@ export const getAllArticles = asyncHandler(async (req, res) => {
     });
 
     res.json(articles);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+export const getPubArticles = asyncHandler(async (req, res) => {
+  try {
+    const articles = await Article.find({});
+
+    res.json(articles);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+export const getPubArticle = asyncHandler(async (req, res) => {
+  try {
+    const article = await Article.findById(req.params.id).populate({
+      path: "comments",
+      populate: {
+        path: "creator",
+        model: "User",
+      },
+    });
+
+    if (!article) {
+      res.status(404);
+      throw new Error("Article not found");
+    }
+
+    res.json(article);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

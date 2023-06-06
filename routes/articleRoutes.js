@@ -10,7 +10,9 @@ router.get("/article/:id", protect, controllers.getArticle);
 router.post("/articles", protect, controllers.createArticle);
 router.put("/articles/:id", protect, controllers.updateArticle);
 router.delete("/article/:id", protect, controllers.deleteArticle);
-router.get("/all", protect, controllers.getAllArticles);
 
+router.get("/all", protect, controllers.getAllArticles);
+router.get("/pubarticles", controllers.getPubArticles);
+router.get("/pubarticle/:id", controllers.getPubArticle);
 
 export default router;

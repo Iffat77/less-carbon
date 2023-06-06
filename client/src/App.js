@@ -10,6 +10,9 @@ import ArticleInfo from "./screens/articles/ArticleInfo";
 import ArticleCreate from "./screens/articles/ArticleCreate";
 import ArticleEdit from "./screens/articles/ArticleEdit";
 import MyArticles from "./screens/articles/MyArticles";
+import Profile from "./screens/Profile";
+import PubHome from "./screens/PubHome";
+import PubArticleInfo from "./screens/articles/PubArticleInfo";
 
 function App() {
 
@@ -25,6 +28,9 @@ function App() {
         <Route path="/article/create" element={< ArticleCreate />} />
         <Route path="/article/:id/edit" element={< ArticleEdit />} />
         <Route path="/articles/me" element={< MyArticles />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/pub-home" element={<PubHome />} />
+        <Route path="/pub-article/:id" element={<PubArticleInfo />} />
       </Routes>
     </div>
   );

@@ -1,7 +1,6 @@
 import api from "./apiConfig";
 
 export const createLike = async (articleId, userId) => {
-  console.log("services fired", typeof articleId, typeof userId);
   try {
     const token = localStorage.getItem("token");
     const headers = {

@@ -34,8 +34,6 @@ export const createCommentForArticle = asyncHandler(async (req, res) => {
       article: articleId,
     });
 
-    console.log("here", comment);
-
     await comment.save();
     article.comments.push(comment._id);
     await article.save();
@@ -76,7 +74,6 @@ export const deleteCommentForArticle = asyncHandler(async (req, res) => {
     const { commentId } = req.params;
 
     // const populatedComment = await Comment.findById(commentId).populate('creator')
-    // console.log(populatedComment.creator)
 
     const comment = await Comment.findById(commentId).populate("creator");
 
@@ -84,7 +81,6 @@ export const deleteCommentForArticle = asyncHandler(async (req, res) => {
       res.status(404);
       throw new Error("Comment not found");
     }
-    // console.log(typeof comment.creator._id, typeof req.user._id)
 
     if (comment.creator._id.toString() !== req.user._id.toString()) {
       res.status(401);

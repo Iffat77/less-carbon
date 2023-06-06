@@ -7,7 +7,6 @@ export const createLike = asyncHandler(async (req, res) => {
   try {
     const { articleId } = req.params;
     const user = req.user._id;
-    console.log(mongoose.Types.ObjectId.isValid(user));
 
     const article = await Article.findById(articleId);
     if (!article) {

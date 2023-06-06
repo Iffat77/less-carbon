@@ -3,7 +3,7 @@ import axios from "axios";
 let apiUrl;
 
 const apiUrls = {
-  production: "https://architecture-api-group7.herokuapp.com/",
+  production: "https://less-carbon-mongodb-api.onrender.com/api",
   development: "http://localhost:8000/api",
 };
 

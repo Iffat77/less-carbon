@@ -37,12 +37,10 @@ function ArticeInfo() {
     try {
       const userName = await getUserNameById(creatorId);
       setCommentCreator(userName);
-      console.log(commentCreator) 
     } catch (error) {
       console.error("Error fetching author:", error);
     }
   };
-  
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -71,7 +69,6 @@ function ArticeInfo() {
     }
   }, [article]);
 
-
   useEffect(() => {
     const fetchArticle = async () => {
       try {
@@ -85,41 +82,23 @@ function ArticeInfo() {
     fetchArticle();
   }, [id]);
 
-  // useEffect(() => {
-  //   const fetchComments = async () => {
-  //     try {
-  //       const commentsData = await commentService.getCommentsForArticle(id);
-  //       setComments(commentsData);
-
-  //       for (const comment of commentsData) {
-  //         console.log(comment.creator)
-  //         fetchCommentAuthor(comment.creator);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching comments:", error);
-  //     }
-  //   };
-
-  //   fetchComments();
-  // }, [id]);
-
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const commentsData = await commentService.getCommentsForArticle(id);
-  
+
         for (let i = 0; i < commentsData.length; i++) {
           const comment = commentsData[i];
           const userName = await getUserNameById(comment.creator);
           commentsData[i] = { ...comment, authorName: userName };
         }
-  
+
         setComments(commentsData);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
     };
-  
+
     fetchComments();
   }, [id]);
 
@@ -172,38 +151,47 @@ function ArticeInfo() {
               <p className="text-xl font-semibold ">- {authorName}</p>
             </div>
           </div>
-          <hr className="w-8 h-8 mx-auto my-8 bg-gray-200 border-0 rounded mt-24" />
+
+          {article.images[0] && (
+            <div className="items-center rounded-lg shadow sm:flex">
+              <img
+                className="w-full rounded-lg object-contain"
+                src={article.images[0]}
+              />
+            </div>
+          )}
           <div className=" mt-24 p-4 mb-4 overflow-auto text-lg">
             <TextRenderer serializedContent={article.content} />
           </div>
           {/* <img src={article.images} alt="images" /> */}
 
           {/* Temporary testing Likes component */}
-          {/* {console.log(user._id)} */}
           {/* {user && <Likes articleId={id} user={user} />} */}
 
           <div className="">
-          {user && (
+            {user && (
               <CreateComment id={id} fetchNewComments={fetchNewComments} />
             )}
-   {comments.map((comment) => (
-  <div className="p-4 mb-6 bg-gray-100 text-gray-700 rounded-lg flex flex-col gap-4 overflow-hidden" key={comment._id}>
-    <div className="flex gap-4 items-center mb-2"> 
-      <p>{comment.authorName}</p>
-      <p>{comment.createdAt}</p>
-    </div>
-    <p className="my-4 text-left">{comment.content}</p>
-    {comment.creator === user?._id && (
-      <button
-        className="w-1/4 text-gray-800 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2"
-        onClick={() => handleDeleteComment(comment._id)}>
-        Delete
-      </button>
-    )}
-  </div>
-))}
-
-            
+            {comments.map((comment) => (
+              <div
+                className="p-4 mb-6 bg-gray-100 text-gray-700 rounded-lg flex flex-col gap-4 overflow-hidden"
+                key={comment._id}
+              >
+                <div className="flex gap-4 items-center mb-2">
+                  <p>{comment.authorName}</p>
+                  <p>{comment.createdAt}</p>
+                </div>
+                <p className="my-4 text-left">{comment.content}</p>
+                {comment.creator === user?._id && (
+                  <button
+                    className="w-1/4 text-gray-800 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-md px-5 py-2.5 mr-2 mb-2"
+                    onClick={() => handleDeleteComment(comment._id)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
         </div>
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16">

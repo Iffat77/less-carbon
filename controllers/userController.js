@@ -117,6 +117,21 @@ export const getUserNameById = asyncHandler(async (req, res) => {
   }
 });
 
+export const getPubUserNameById = asyncHandler(async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id)
+  
+      if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+  
+      res.status(200).json(user.name);
+    } catch (err) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {

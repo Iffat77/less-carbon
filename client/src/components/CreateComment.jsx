@@ -17,9 +17,9 @@ function CreateComment({ id, fetchNewComments }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(id, comment);
+
     await createCommentForArticle(id, comment);
-    console.log("submitted");
+
     if (fetchNewComments) {
       await fetchNewComments();
     }

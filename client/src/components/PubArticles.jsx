@@ -1,29 +1,21 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUserNameById } from "../services/findUser.js";
+import { getPubUserNameById } from "../services/findUser";
 
-const pascalColors = [
-  "#95A5A6",
-];
+const pascalColors = ["#95A5A6"];
 
-function ListAllArticles({ article }) {
+function PubArticles({ article }) {
   const [authorName, setAuthorName] = useState("");
   const [avatarColor, setAvatarColor] = useState("");
-  
-
-  // useEffect(() => {
-  //   const randomColor = pascalColors[Math.floor(Math.random() * pascalColors.length)];
-  //   setAvatarColor(randomColor);
-  // }, []);
 
   useEffect(() => {
-  setAvatarColor(pascalColors[0])
+    setAvatarColor(pascalColors[0]);
   }, []);
-  
+
   useEffect(() => {
     const fetchAuthor = async () => {
       try {
-        const userName = await getUserNameById(article.author);
+        const userName = await getPubUserNameById(article.author);
         setAuthorName(userName);
       } catch (error) {
         console.error("Error fetching author:", error);
@@ -37,7 +29,7 @@ function ListAllArticles({ article }) {
 
   return (
     <div>
-      <Link to={`/article/${article._id}`}>
+      <Link to={`/pub-article/${article._id}`}>
         <div className="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
           <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
             {article.title}
@@ -58,4 +50,4 @@ function ListAllArticles({ article }) {
   );
 }
 
-export default ListAllArticles;
+export default PubArticles;

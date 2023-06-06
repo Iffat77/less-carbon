@@ -66,7 +66,6 @@ const TextEditor = ({ onContentChange }) => {
           );
           if (isAstChange) {
             const content = JSON.stringify(value);
-            // localStorage.setItem("content", content);
             onContentChange(content);
           }
         }}
