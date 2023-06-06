@@ -3,7 +3,7 @@ import axios from "axios";
 let apiUrl;
 
 const apiUrls = {
-  production: "https://less-carbon-mongodb-api.onrender.com/api",
+  production: process.env.PROD_URL,
   development: "http://localhost:8000/api",
 };
 
