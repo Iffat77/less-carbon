@@ -1,9 +1,11 @@
 import axios from "axios";
 
 let apiUrl;
+const prod = process.env.REACT_APP_PROD_URL
+
 
 const apiUrls = {
-  production: "https://less-carbon-mongodb-api.onrender.com/api",
+  production: prod,
   development: "http://localhost:8000/api",
 };
 
