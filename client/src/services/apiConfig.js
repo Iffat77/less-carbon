@@ -1,11 +1,15 @@
 import axios from "axios";
 
+
 let apiUrl;
+const prodUrl = process.env.PROD_URL
 
 const apiUrls = {
-  production: process.env.PROD_URL,
+  production: prodUrl,
   development: "http://localhost:8000/api",
 };
+
+console.log(prodUrl)
 
 if (window.location.hostname === "localhost") {
   apiUrl = apiUrls.development;
@@ -18,3 +22,5 @@ const api = axios.create({
 });
 
 export default api;
+
+
