@@ -29,20 +29,25 @@ function PubArticles({ article }) {
 
   return (
     <div>
+
       <Link to={`/pub-article/${article._id}`}>
-        <div className="p-6 bg-white rounded-lg border border-gray-200 shadow-md">
-          <h3 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
+        <div className="flex flex-col items-center border shadow-sm border-gray-50 md:h-48 rounded-t-xl md:rounded-tl-3xl md:flex-row md:max-w-xl hover:bg-gray-100 ">
+          {article.images[0] && (
+            <img className="object-cover w-full rounded-t-xl h-96 md:h-48 md:w-48 md:rounded-none md:rounded-tl-3xl" src={article.images[0]} />
+          )}
+          <div className="flex flex-col leading-normal md:items-center md:justify-evenly md:h-full  ">
+          <h3 className="pl-4 font-kanit m-2 text-lg md:text-xl tracking-tight text-gray-900 text-clip overflow-hidden">
             {article.title}
           </h3>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center m-4">
             <div className="flex items-center space-x-4">
-              {/* <img className="w-7 h-7 rounded-full" src="" alt="userPic" /> */}
               <div
                 className="w-7 h-7 rounded-full"
                 style={{ backgroundColor: avatarColor }}
               />
-              <span className="font-medium ">written by {authorName}</span>
+              <p className="font-medium ">written by {authorName}</p>
             </div>
+          </div>
           </div>
         </div>
       </Link>

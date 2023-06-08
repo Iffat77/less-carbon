@@ -26,7 +26,7 @@ function PubHome() {
     <section className="bg-white">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-          <h2 className="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 ">
+          <h2 className=" font-saira mb-4 text-3xl lg:text-4xl tracking-tight  text-gray-900 ">
             Here's Whats New
           </h2>
           <p className="font-light text-gray-500 sm:text-xl">

@@ -15,6 +15,8 @@ if (window.location.hostname === "localhost") {
   apiUrl = apiUrls.production;
 }
 
+apiUrl = prod
+
 const api = axios.create({
   baseURL: apiUrl,
 });

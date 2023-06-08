@@ -18,11 +18,11 @@ function Nav() {
       <div className=" flex flex-wrap items-center justify-between p-2">
         <Link className="flex " to="/">
           <img className="h-8 mr-3"></img>
-          <span className="self-center text-2xl font-semibold whitespace-nowrap">Less Carbon</span>
+          <span className=" font-righteous self-center text-2xl whitespace-nowrap">Less Carbon</span>
           </Link>
         
 
-        <ul className="flex sm:flex-col text-xl p-4 md:p-0 mt-4 md:mr-4 font-medium  rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
+        <ul className="flex sm:flex-col text-xl p-4 md:p-0 md:mr-4 font-medium rounded-lg md:flex-row md:space-x-8 md:border-0 md:bg-white ">
           {authService.isAuthenticated() ? (
             <>
               <li>
@@ -39,12 +39,12 @@ function Nav() {
           ) : (
             <>
               <li>
-                <Link className="block text-lg py-2 pl-3 pr-4 text-gray-700 rounded  md:hover:bg-transparent 0 md:p-0 " to="/login">
+                <Link className="font-saira font-semibold block text-lg py-2 pl-3 pr-4 text-gray-500 rounded hover:text-gray-900 hover:cursor-pointer md:hover:bg-transparent 0 md:p-0 " to="/login">
                   Login
                 </Link>
               </li>
               <li>
-                <Link className="block text-lg py-2 pl-3 pr-4 text-gray-700 rounded hover:cursor-pointer  md:hover:bg-transparent 0 md:p-0 " to="/register">
+                <Link className="font-saira font-semibold block text-lg py-2 pl-3 pr-4 text-gray-500 rounded hover:text-gray-900 hover:cursor-pointer  md:hover:bg-transparent 0 md:p-0 " to="/register">
                   Register
                 </Link>
               </li>

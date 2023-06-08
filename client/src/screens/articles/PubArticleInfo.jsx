@@ -61,7 +61,7 @@ function PubArticleInfo() {
       <div className=" md:flex justify-between px-4 mx-auto max-w-screen-xl ">
         <div className="mx-auto w-full max-w-2xl ">
           <div className="mb-4 lg:mb-6">
-            <h2 className="mb-4 text-3xl text-left font-bold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
+            <h2 className=" font-zilla mb-4 text-3xl text-left font-semibold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
               {article.title}
             </h2>
             <div className="flex items-center mb-6">
@@ -77,7 +77,7 @@ function PubArticleInfo() {
               />
             </div>
           )}
-          <div className=" mt-24 p-4 mb-4 overflow-auto text-lg">
+          <div className="font-wix-made mt-24 p-4 mb-4 overflow-auto text-lg">
             <TextRenderer serializedContent={article.content} />
           </div>
         </div>
