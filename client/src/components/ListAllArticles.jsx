@@ -34,6 +34,7 @@ function ListAllArticles({ article }) {
       fetchAuthor();
     }
   }, [article]);
+  
 
   return (
     <div>

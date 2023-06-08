@@ -7,6 +7,7 @@ import * as commentService from "../../services/comments.js";
 import CreateComment from "../../components/CreateComment.jsx";
 import { getUserNameById } from "../../services/findUser.js";
 
+
 function ArticeInfo() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -139,6 +140,12 @@ function ArticeInfo() {
     return <div>Loading...</div>;
   }
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+
   return (
     <div className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white ">
       <div className=" md:flex justify-between px-4 mx-auto max-w-screen-xl ">
@@ -147,8 +154,9 @@ function ArticeInfo() {
             <h2 className="font-zilla mb-4 text-3xl text-left font-bold leading-tight text-gray-900 lg:mb-6 lg:text-4xl ">
               {article.title}
             </h2>
-            <div className="flex items-center mb-6">
+            <div className="flex flex-col justify-center items-start mb-6">
               <p className="text-xl font-semibold ">- {authorName}</p>
+              <p>{formatDate(article.createdAt)}</p>
             </div>
           </div>
 
@@ -179,7 +187,7 @@ function ArticeInfo() {
               >
                 <div className="flex gap-4 items-center mb-2">
                   <p>{comment.authorName}</p>
-                  <p>{comment.createdAt}</p>
+                  <p>{formatDate(comment.createdAt)}</p>
                 </div>
                 <p className="my-4 text-left">{comment.content}</p>
                 {comment.creator === user?._id && (

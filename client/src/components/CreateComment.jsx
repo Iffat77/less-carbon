@@ -6,7 +6,7 @@ function CreateComment({ id, fetchNewComments }) {
   const [comment, setComment] = useState({
     content: "",
   });
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setComment({

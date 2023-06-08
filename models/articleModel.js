@@ -21,6 +21,10 @@ const articleSchema = new Schema({
     ref: "Comment",
   }],
   images: [String],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 export default mongoose.model("Article", articleSchema);
