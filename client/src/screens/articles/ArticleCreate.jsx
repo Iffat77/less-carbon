@@ -9,12 +9,13 @@ function ArticleCreate() {
     content: "",
     images: [],
   });
+  const [error, setError] = useState(null)
 
   let navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "image") {
       const imageLinks = value.split(" ");
       setArticle({
@@ -40,6 +41,16 @@ function ArticleCreate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (article.content === "") {
+      setError("Content is required");
+      return;
+    }
+    if (article.title === "") {
+      setError("Title is required");
+      return;
+    }
+
     await createArticle(article);
     navigate("/", { replace: true });
   };
@@ -50,6 +61,7 @@ function ArticleCreate() {
         className=" flex flex-col gap-10 items-center mt-4 p-4 h-full w-full overflow-auto "
         onSubmit={handleSubmit}
       >
+        <p className="text-red-500">{ error}</p>
         <input
           className="md:w-1/2 lg:min-w-[500px]text-lg md:text-2xl focus:outline-none"
           placeholder="Title"

@@ -13,6 +13,7 @@ function ArticleEdit() {
     content: "",
     images: "",
   });
+  const [error, setError] = useState(null)
 
   let navigate = useNavigate();
   const { id } = useParams();
@@ -61,6 +62,16 @@ function ArticleEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (article.content === "") {
+      setError("Content is required");
+      return;
+    }
+    if (article.title === "") {
+      setError("Title is required");
+      return;
+    }
+
     await updateArticle(id, article);
     navigate(`/article/${id}`, { replace: true });
   };
@@ -71,6 +82,7 @@ function ArticleEdit() {
         className=" flex flex-col gap-10 items-center mt-4 py-4 h-full w-full overflow-auto "
         onSubmit={handleSubmit}
       >
+        <p className="text-red-500">{error}</p>
         <input
           className="md:w-1/2 lg:min-w-[500px]text-lg md:text-2xl focus:outline-none"
           placeholder="Title"
