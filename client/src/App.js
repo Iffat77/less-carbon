@@ -13,6 +13,7 @@ import MyArticles from "./screens/articles/MyArticles";
 import Profile from "./screens/Profile";
 import PubHome from "./screens/PubHome";
 import PubArticleInfo from "./screens/articles/PubArticleInfo";
+import About from "./screens/About";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/pub-home" element={<PubHome />} />
         <Route path="/pub-article/:id" element={<PubArticleInfo />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );

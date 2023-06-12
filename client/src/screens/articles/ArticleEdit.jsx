@@ -13,7 +13,7 @@ function ArticleEdit() {
     content: "",
     images: "",
   });
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
   let navigate = useNavigate();
   const { id } = useParams();
@@ -38,7 +38,7 @@ function ArticleEdit() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "image") {
       const imageLinks = value.split("\n");
       setArticle({
@@ -108,16 +108,14 @@ function ArticleEdit() {
         >
           Post
         </button>
-      <button
-        className= "text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300  font-medium rounded-lg text-sm lg:text-md px-5 py-2.5"
-        onClick={() => handleDeleteArticle(article._id)}
-      >
-        Delete Article
-      </button>
+        <button
+          className="text-gray-800 bg-gray-100 hover:bg-gray-300 focus:ring-2 focus:ring-gray-300  font-medium rounded-lg text-sm lg:text-md px-5 py-2.5"
+          onClick={() => handleDeleteArticle(article._id)}
+        >
+          Delete Article
+        </button>
       </form>
-      <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16"> 
-      </div>
-
+      <div className="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8 mt-8 lg:mt-16"></div>
     </div>
   );
 }
