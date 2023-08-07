@@ -6,9 +6,9 @@ dotenv.config();
 
 
 const MONGODB_URI =
-  process.env.PROD_MONGODB
+  // process.env.PROD_MONGODB
   // ||
-  // "mongodb://127.0.0.1/less-carbon";
+  "mongodb://127.0.0.1/less-carbon";
 
   console.log(MONGODB_URI)
 

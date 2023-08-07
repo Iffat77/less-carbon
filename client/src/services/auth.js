@@ -2,10 +2,9 @@ import axios from "axios";
 import api from "./apiConfig";
 
 const prod = process.env.REACT_APP_PROD_URL
-// Remider to update url before prod NOTE- fugure out api import issue
+// Reminder to update url before prod NOTE- fugure out api import issue
 
 const baseUrl = `${prod}/users`;
-// const baseUrl = "http://localhost:8000/api/users";
 
 
 const authService = {
